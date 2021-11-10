@@ -1,3 +1,4 @@
+import {useContext, useEffect} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,8 +9,23 @@ import {
 /* Importaciones propias */
 import {ChatPage} from '../pages/ChatPage';
 import {AuthRouter} from './AuthRouter';
+import {AuthContext} from '../auth/AuthContext';
 
 export const AppRouter = () => {
+    const {auth, checkToken} = useContext(AuthContext);
+
+    useEffect(() => {
+        checkToken();
+    }, [checkToken]);
+
+    if (auth.checking) {
+        return (
+            <div className="m-0 vh-100 row justify-content-center align-items-center">
+                <div className="spinner-border text-primary"></div>
+            </div>
+        );
+    }
+
     return (
         <Router>
             <div>
