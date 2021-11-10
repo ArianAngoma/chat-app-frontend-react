@@ -10,6 +10,8 @@ import {
 import {ChatPage} from '../pages/ChatPage';
 import {AuthRouter} from './AuthRouter';
 import {AuthContext} from '../auth/AuthContext';
+import {PublicRoute} from './PublicRoute';
+import {PrivateRoute} from './PrivateRoute';
 
 export const AppRouter = () => {
     const {auth, checkToken} = useContext(AuthContext);
@@ -30,8 +32,11 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Switch>
-                    <Route path="/auth" component={AuthRouter}/>
-                    <Route exact path="/" component={ChatPage}/>
+                    {/*<Route path="/auth" component={AuthRouter}/>*/}
+                    <PublicRoute isAuthenticated={auth.logged} path="/auth" component={AuthRouter}/>
+
+                    {/*<Route exact path="/" component={ChatPage}/>*/}
+                    <PrivateRoute isAuthenticated={auth.logged} exact path="/" component={ChatPage}/>
 
                     <Redirect to="/"/>
                 </Switch>
