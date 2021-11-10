@@ -2,7 +2,7 @@ import {useContext, useEffect} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
+    // Route,
     Redirect
 } from 'react-router-dom';
 
