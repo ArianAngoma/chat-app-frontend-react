@@ -1,5 +1,8 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+
+/* Importaciones propias */
+import {AuthContext} from '../auth/AuthContext';
 
 const initialStateFormLogin = {
     email: '',
@@ -8,6 +11,8 @@ const initialStateFormLogin = {
 }
 
 export const LoginPage = () => {
+    const {login} = useContext(AuthContext);
+
     /* Estado del formulario */
     const [form, setForm] = useState(initialStateFormLogin);
 
@@ -43,6 +48,8 @@ export const LoginPage = () => {
         (form.rememberMe)
             ? localStorage.setItem('email', form.email)
             : localStorage.removeItem('email');
+
+        login(form.email, form.password);
     }
 
     return (
