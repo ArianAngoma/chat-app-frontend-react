@@ -55,6 +55,9 @@ export const LoginPage = () => {
         if (!ok) Swal.fire('Error', 'Verifique el usuario o contraseña', 'error');
     }
 
+    /* Función para deshabilitar botón si el formulario esta incompleto */
+    const formFull = () => !!(form.email.length && form.password.length);
+
     return (
         <form className="login100-form validate-form flex-sb flex-w"
               onSubmit={onSubmit}>
@@ -95,7 +98,8 @@ export const LoginPage = () => {
             </div>
 
             <div className="container-login100-form-btn m-t-17">
-                <button className="login100-form-btn">
+                <button className="login100-form-btn" type="submit"
+                        disabled={!formFull()}>
                     Ingresar
                 </button>
             </div>
