@@ -4,7 +4,9 @@ export const SidebarChatItem = () => {
             {/* active_chat */}
             <div className="chat_people">
                 <div className="chat_img">
-                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"/>
+                    <img
+                        src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
+                        alt="avatar"/>
                 </div>
 
                 <div className="chat_ib">
