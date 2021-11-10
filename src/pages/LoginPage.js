@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 const initialStateFormLogin = {
@@ -10,6 +10,16 @@ const initialStateFormLogin = {
 export const LoginPage = () => {
     /* Estado del formulario */
     const [form, setForm] = useState(initialStateFormLogin);
+
+    /* Leer si existe un email guardado */
+    useEffect(() => {
+        const rememberMeEmail = localStorage.getItem('email');
+        if (rememberMeEmail) setForm({
+            ...form,
+            rememberMe: true,
+            email: rememberMeEmail
+        });
+    }, [form]);
 
     const onChangeForm = ({target}) => {
         const {name, value} = target;
@@ -26,8 +36,13 @@ export const LoginPage = () => {
         });
     }
 
+    /* Enviar formulario */
     const onSubmit = (e) => {
         e.preventDefault();
+
+        (form.rememberMe)
+            ? localStorage.setItem('email', form.email)
+            : localStorage.removeItem('email');
     }
 
     return (
