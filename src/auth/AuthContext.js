@@ -19,7 +19,20 @@ export const AuthProvider = ({children}) => {
 
     const login = async (email, password) => {
         const resp = await fetchNoToken('auth', {email, password}, 'POST');
-        console.log(resp);
+        // console.log(resp);
+        const {user} = resp;
+        if (resp.ok) {
+            localStorage.setItem('token', resp.token);
+            setAuth({
+                uid: user.uid,
+                checking: false,
+                logged: true,
+                name: user.name,
+                email: user.email
+            });
+        }
+
+        return resp.ok;
     }
 
     const register = (name, email, password) => {
@@ -36,7 +49,7 @@ export const AuthProvider = ({children}) => {
 
     return (
         <AuthContext.Provider value={{
-            login, register, checkToken, logout
+            login, register, checkToken, logout, auth
         }}>
             {children}
         </AuthContext.Provider>
