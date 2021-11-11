@@ -1,11 +1,24 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import io from 'socket.io-client';
 
 export const useSocket = (serverPath) => {
-    /* Se hace uso del useMemo para establecer un nuevo socket solo si la cadena de conexión cambia */
-    const socket = useMemo(() => io.connect(serverPath, {
-        transports: ['websocket']
-    }), [serverPath]);
+    /* Estado de socket */
+    const [socket, setSocket] = useState(null);
+
+    /* Función para conectar socket */
+    const connectSocket = useCallback(() => {
+        const socketTemp = io.connect(serverPath, {
+            transports: ['websocket'],
+            autoConnect: true,
+            forceNew: true
+        });
+        setSocket(socketTemp);
+    }, [serverPath]);
+
+    /* Función para desconectar socket */
+    const disconnectSocket = useCallback(() => {
+        socket?.disconnect();
+    }, [socket]);
 
     /* Estado para online */
     const [online, setOnline] = useState(false);
@@ -13,23 +26,23 @@ export const useSocket = (serverPath) => {
     /* Escuchar si el cliente se conecta */
     useEffect(() => {
         // console.log(socket);
-        setOnline(socket.connected)
+        setOnline(socket?.connected)
     }, [socket]);
 
     /* Escuchar si se recupera la conexión */
     useEffect(() => {
-        socket.on('connect', () => [
+        socket?.on('connect', () => [
             setOnline(true)
         ]);
     }, [socket]);
 
     /* Escuchar cuando perdemos la conexión */
     useEffect(() => {
-        socket.on('disconnect', () => [
+        socket?.on('disconnect', () => [
             setOnline(false)
         ]);
     }, [socket]);
 
 
-    return {socket, online};
+    return {socket, online, connectSocket, disconnectSocket};
 }
