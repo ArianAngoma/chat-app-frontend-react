@@ -74,7 +74,7 @@ export const LoginPage = () => {
 
             <div className="wrap-input100 validate-input mb-3">
                 <input className="input100" type="password" name="password" placeholder="Password"
-                       checked={form.password}
+                       value={form.password}
                        onChange={onChangeForm}/>
                 <span className="focus-input100"/>
             </div>
