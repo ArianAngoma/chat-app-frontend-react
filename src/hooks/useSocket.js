@@ -7,10 +7,16 @@ export const useSocket = (serverPath) => {
 
     /* Función para conectar socket */
     const connectSocket = useCallback(() => {
+        /* Obtener token para identificar al cliente conectado */
+        const token = localStorage.getItem('token');
+
         const socketTemp = io.connect(serverPath, {
             transports: ['websocket'],
             autoConnect: true,
-            forceNew: true
+            forceNew: true,
+            query: {
+                'x-token': token
+            }
         });
         setSocket(socketTemp);
     }, [serverPath]);
