@@ -1,7 +1,16 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
+
+/* Importaciones propias */
+import {SocketContext} from '../../context/SocketContext';
+import {AuthContext} from '../../auth/AuthContext';
+import {ChatContext} from '../../context/chat/ChatContext';
 
 export const SendMessage = () => {
     const [message, setMessage] = useState('');
+
+    const {socket} = useContext(SocketContext);
+    const {auth} = useContext(AuthContext);
+    const {chatState} = useContext(ChatContext);
 
     const handleChange = ({target}) => {
         setMessage(target.value);
@@ -15,6 +24,13 @@ export const SendMessage = () => {
 
         /* Limpiar formulario */
         setMessage('');
+
+        /* Emitir evento de nuevo mensaje personal */
+        socket.emit('message-personal', {
+            from: auth.uid,
+            to: chatState.chatActive,
+            message
+        });
     }
 
     return (
