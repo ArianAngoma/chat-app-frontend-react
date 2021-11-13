@@ -1,4 +1,4 @@
-export const IncomingMessage = () => {
+export const IncomingMessage = ({message}) => {
     return (
         <div className="incoming_msg">
             <div className="incoming_msg_img">
@@ -9,8 +9,7 @@ export const IncomingMessage = () => {
 
             <div className="received_msg">
                 <div className="received_withd_msg">
-                    <p>Test which is a new approach to have all
-                        solutions</p>
+                    <p>{message.message}</p>
                     <span className="time_date"> 11:01 AM | June 9</span>
                 </div>
             </div>
