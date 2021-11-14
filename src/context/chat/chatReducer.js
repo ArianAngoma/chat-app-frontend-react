@@ -36,6 +36,14 @@ export const chatReducer = (state, action) => {
                 ...state,
                 messages: [...action.payload]
             }
+        /* Limpiar state al hacer logout */
+        case types.chatClearStateLogout:
+            return {
+                uid: '',
+                chatActive: null,
+                users: [],
+                messages: []
+            }
         default:
             return state;
     }

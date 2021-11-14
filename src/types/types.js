@@ -3,5 +3,6 @@ export const types = {
 
     chatSetActive: '[chat] Set Active Chat',
     chatNewMessage: '[chat] New Message',
-    chatLoadMessages: '[chat] Load Messages'
+    chatLoadMessages: '[chat] Load Messages',
+    chatClearStateLogout: '[chat] Clear State Logout'
 }
