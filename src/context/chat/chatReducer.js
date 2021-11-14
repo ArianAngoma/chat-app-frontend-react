@@ -30,6 +30,12 @@ export const chatReducer = (state, action) => {
             } else {
                 return state;
             }
+        /* Cargar mensajes */
+        case types.chatLoadMessages:
+            return {
+                ...state,
+                messages: [...action.payload]
+            }
         default:
             return state;
     }
