@@ -1,7 +1,10 @@
 import {useContext} from 'react';
+
+/* Importaciones propias */
 import {ChatContext} from '../../context/chat/ChatContext';
 import {types} from '../../types/types';
 import {fetchWithToken} from '../../helpers/fetch';
+import {scrollToBottom} from '../../helpers/scrollToBottom';
 
 export const SidebarChatItem = ({user}) => {
     /* Estado del chat */
@@ -22,6 +25,8 @@ export const SidebarChatItem = ({user}) => {
             payload: resp.messages
         });
 
+        /* Scroll del chat */
+        scrollToBottom('messages');
     }
 
     return (
